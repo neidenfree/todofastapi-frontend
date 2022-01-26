@@ -1,25 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import Login from "./auth/login";
+import {Routes, Route, Link, Router, BrowserRouter} from "react-router-dom";
+import {Navigate} from 'react-router-dom';
+import Startup from "./startup";
+import TaskPage from "./tasks/taskPage";
+import Signup from "./auth/signup";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    function loggedIn() {
+        let a = localStorage.getItem("username");
+        return a === null;
+    }
+
+    return (
+        <BrowserRouter>
+            <main>
+
+                <div className="App">
+                    <Routes>
+                        <Route path={"/"} element={<Startup/>}/>
+                        <Route path={"/login"} element={<Login/>}/>
+                        <Route path={"/signup"} element={<Signup/>}/>
+                        {/*<Route exact path={"/signup"} component={Login}/>*/}
+                    </Routes>
+                    {/*<div className={"loginForm"}>*/}
+                    {/*    <Login/>*/}
+                    {/*</div>*/}
+                </div>
+            </main>
+        </BrowserRouter>
+    );
 }
 
 export default App;
