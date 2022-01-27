@@ -4,15 +4,28 @@ import {Component} from "react";
 import {Navigate} from "react-router-dom";
 import {logOut} from "../App";
 import {loggedIn} from "../App";
-
+import {Button} from "@mui/material";
 
 export default class TaskPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tasks: [],
+            username: localStorage.getItem("username"),
+        }
+    }
+
+    componentDidMount() {
+        fetch("https://localhost:8888")
+    }
+
     render() {
         return (
             loggedIn() ? <div>
-                    <h1>Welcome to my site!</h1>
+                    <h1>Welcome to my site, {this.state.username}!</h1>
                     <p>You successfully logged in!</p>
-                    <input type={"button"} value={"LogOut"} onClick={logOut}/>
+                <Button variant={"contained"} onClick={logOut}>LogOut</Button>
+                    {/*<input type={"button"} value={"LogOut"} onClick={logOut}/>*/}
                 </div> :
                 <Navigate to={"/login"}/>
         );
