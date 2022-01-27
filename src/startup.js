@@ -9,7 +9,6 @@ export default class Startup extends Component {
         return (
             <div>
                 <h1>Welcome to my site!</h1>
-
                 {/*<Link to={"/ss"}>Start</Link>*/}
                 <Link to={"/login"}>Login</Link>
                 <Link to={"/signup"}>Signup</Link>
