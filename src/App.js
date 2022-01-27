@@ -9,8 +9,6 @@ import LoginWithNavigate from "./auth/login";
 
 export function loggedIn() {
     let a = localStorage.getItem("username");
-    console.log(a);
-    // console.log(a === null);
     return a !== null;
 }
 

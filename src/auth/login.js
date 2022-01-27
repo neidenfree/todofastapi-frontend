@@ -1,10 +1,12 @@
 import './login.css';
 
 import {Component} from "react";
-import {Redirect, useNavigate} from "react-router-dom";
+import {NavLink, Redirect, useNavigate} from "react-router-dom";
 import {Navigate} from "react-router-dom";
 // import {loggedId} from "../App";
 import {loggedIn} from "../App";
+import {Alert, Box, Button, Grid, Link, TextField, Typography} from "@mui/material";
+// import {Link} from "react-router-dom";
 // import loggedIn from app
 
 export default class Login extends Component {
@@ -57,7 +59,7 @@ export default class Login extends Component {
                 if (!res.ok) {
                     return {
                         "ok": false,
-                        "message": "Wrong username/password!"
+                        "message": "Wrong email/password!"
                     };
                 }
                 return res.json()
@@ -80,23 +82,53 @@ export default class Login extends Component {
 
 
     render() {
-
-
         return (
             !this.loggedIn ?
-                <div className={"loginForm"}>
-                    <form>
-                        <input className={"inputField"} type={"text"} placeholder={"Username"} name={"username"}
-                               value={this.state.username} onChange={this.handleChange}/>
-                        <input className={"inputField"} type={"email"} placeholder={"Email"} name={"email"}
-                               value={this.state.email} onChange={this.handleChange}/>
-                        <input className={"inputField"} type={"password"} placeholder={"password"} name={"password"}
-                               value={this.state.password} onChange={this.handleChange}/>
-                        <input className={"button"} type={"button"} value={"OK"} onClick={this.handleSubmit}/>
-                        <div>{this.state.message}</div>
-                    </form>
+                <div>
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}>
+                        <Typography component={"h1"}>
+                            Log in
+                        </Typography>
+                        <Box component={"form"} onSubmit={this.handleSubmit}>
+                            <TextField value={this.state.email} onChange={this.handleChange}
+                                       margin="normal" required fullWidth id="email" name="email" label="email"
+                                       autoFocus/>
+                            <TextField value={this.state.password} onChange={this.handleChange}
+                                       margin="normal" name="password"
+                                       id={"password"} label={"password"}
+                                       type={"password"}
+                                       required fullWidth/>
+                            {this.state.message === "" ? <div></div> :
+                                <Alert severity={"error"}>{this.state.message}</Alert>}
+                            <Button type={"submit"} fullWidth variant={"contained"}
+                                    sx={{mt: 3, mb: 2}}> Log in</Button>
+
+                            <Grid container>
+                                <Grid item xs>
+                                    {/*<Link href="#" variant="body2">*/}
+                                    {/*    Forgot password?*/}
+                                    {/*</Link>*/}
+                                </Grid>
+                                <Grid item>
+                                    <Link href="#" variant="body2" component={NavLink} to={"/signup"}>
+                                        {"Don't have an account? Sign Up"}
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </Box>
+
+                        {/*<Typography component={"h1"}>*/}
+                        {/*    {this.state.message}*/}
+                        {/*</Typography>*/}
+                    </Box>
                 </div>
-            :<Navigate to={"/tasks"}/>
+                : <Navigate to={"/tasks"}/>
 
         )
     }

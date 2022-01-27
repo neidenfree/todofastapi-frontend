@@ -16,7 +16,7 @@ export default class TaskPage extends Component {
     }
 
     componentDidMount() {
-        fetch("https://localhost:8888")
+        // fetch("https://localhost:8888")
     }
 
     render() {
