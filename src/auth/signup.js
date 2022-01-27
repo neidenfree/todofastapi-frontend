@@ -1,17 +1,62 @@
 import Login from "./login";
-import {Box, Button, Grid, Link, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, Grid, Link, TextField, Typography} from "@mui/material";
 import {Navigate, NavLink} from "react-router-dom";
 // import {useNavigate} from "react-router-dom";
 
 
 export default class Signup extends Login {
+    constructor(props) {
+        super(props);
+    }
+    
+    componentDidMount() {
+        this.setState({matchedPasswords: true, error: ""});
+    }
+
     async handleSubmit(event) {
         event.preventDefault();
         this.setState({password2: ""});
         if (this.state.password !== this.state.password2) {
-            alert("Пароли не совпадают!");
+            this.setState({matchedPasswords: false});
+            // TODO: Check this!
+            return null;
         }
-        alert("А вот хуй тебе на рыло");
+        // alert("А вот хуй тебе на рыло");
+
+        let loginData;
+        let signUpData = {
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(signUpData)
+        }
+
+        // try{
+        const response = await fetch('http://localhost:8888/register/', requestOptions).then(
+            (res) => {
+                return res.json()
+            }
+        );
+        if (!response.ok){
+            console.log(response);
+            this.setState({error: response.message});
+            // alert(response.message);
+        } else {
+            localStorage.setItem("username", response.username);
+            localStorage.setItem("password", this.state.password);
+            localStorage.setItem("email", response.email);
+            window.location.reload();
+        }
+    }
+
+    handleChange(event) {
+        super.handleChange(event);
+        this.setState({matchedPasswords: true, error: ""});
     }
 
     render() {
@@ -33,7 +78,7 @@ export default class Signup extends Login {
                                        margin="normal" required fullWidth id="username" name={"username"}
                                        label="Username" autoFocus/>
                             <TextField value={this.state.email} onChange={this.handleChange}
-                                       margin="normal" required fullWidth id="email" name="email" label="Email"/>
+                                       margin="normal" required fullWidth id="email" type="email" name="email" label="Email"/>
                             <TextField value={this.state.password} onChange={this.handleChange}
                                        margin="normal" name="password"
                                        id={"password"} label={"Password"}
@@ -44,6 +89,10 @@ export default class Signup extends Login {
                                        id={"password2"} label={"Repeat password"}
                                        type={"password"}
                                        required fullWidth/>
+                            {this.state.matchedPasswords === true ? <div></div> :
+                                <Alert severity={"error"}>Passwords don't match</Alert>}
+                            {this.state.error === "" ? <div></div> :
+                                <Alert severity={"error"}>{this.state.error}</Alert>}
                             <Button type={"submit"} fullWidth variant={"contained"}
                                     sx={{mt: 3, mb: 2}}> Log in</Button>
 

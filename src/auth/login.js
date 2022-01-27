@@ -97,8 +97,8 @@ export default class Login extends Component {
                         </Typography>
                         <Box component={"form"} onSubmit={this.handleSubmit}>
                             <TextField value={this.state.email} onChange={this.handleChange}
-                                       margin="normal" required fullWidth id="email" name="email" label="email"
-                                       autoFocus/>
+                                       margin="normal" required fullWidth id="email" name="email"
+                                       label="email" type={"email"} autoFocus/>
                             <TextField value={this.state.password} onChange={this.handleChange}
                                        margin="normal" name="password"
                                        id={"password"} label={"password"}
