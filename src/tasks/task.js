@@ -1,4 +1,5 @@
 import {Component} from "react";
+import {Box, Card, CardContent, Typography} from "@mui/material";
 
 
 export default class Task extends Component {
@@ -6,11 +7,16 @@ export default class Task extends Component {
         super(props);
     }
 
-    render(){
-        return(
-            <div>
-                <h1>{this.props.name}</h1>
-            </div>
+    render() {
+        return (
+
+            <Card variant={"outlined"}>
+                <CardContent>
+                    <Typography variant={"h5"}>
+                        {this.props.title}
+                    </Typography>
+                </CardContent>
+            </Card>
         )
     }
 }

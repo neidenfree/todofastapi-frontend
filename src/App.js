@@ -7,6 +7,7 @@ import TaskPage from "./tasks/taskPage";
 import Signup from "./auth/signup";
 import LoginWithNavigate from "./auth/login";
 import ChangePassword from "./auth/changePassword";
+import Settings from "./settings/settings";
 
 export function loggedIn() {
     let a = localStorage.getItem("username");
@@ -33,6 +34,7 @@ function App() {
                         <Route path={"/signup"} element={<Signup/>}/>
                         <Route path={"/tasks"} element={<TaskPage/>}/>
                         <Route path={"/change-password"} element={<ChangePassword/>}/>
+                        <Route path={"/settings"} element={<Settings/>}/>
                         {/*<Route exact path={"/signup"} component={Login}/>*/}
                     </Routes>
                 </div>
