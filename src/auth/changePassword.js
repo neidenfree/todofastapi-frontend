@@ -17,7 +17,6 @@ export default class ChangePassword extends Login {
 
     async handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state);
 
         if (this.state.oldPassword !== localStorage.getItem("password")) {
             this.setState({message: "Old password is incorrect!"});
@@ -35,7 +34,6 @@ export default class ChangePassword extends Login {
             email: localStorage.getItem("email"),
             new_password: this.state.password
         }
-        console.log(changeData);
 
         const requestOptions = {
             method: 'PUT',
@@ -43,20 +41,15 @@ export default class ChangePassword extends Login {
             body: JSON.stringify(changeData)
         }
 
-        // try{
         const response = await fetch('http://localhost:8888/change-password/', requestOptions).then(
             (res) => {
                 return res.json()
             }
         );
-        if (!response.ok){
-            console.log(response)
+        if (!response.ok) {
             this.setState({message: response.message});
         } else {
-            // localStorage.setItem("username", this.state.username);
             localStorage.setItem("password", this.state.password);
-            // localStorage.setItem("email", response.email);
-
             window.location.reload();
         }
 

@@ -8,7 +8,7 @@ export default class Signup extends Login {
     constructor(props) {
         super(props);
     }
-    
+
     componentDidMount() {
         this.setState({matchedPasswords: true, error: ""});
     }
@@ -21,7 +21,6 @@ export default class Signup extends Login {
             // TODO: Check this!
             return null;
         }
-        // alert("А вот хуй тебе на рыло");
 
         let signUpData = {
             username: this.state.username,
@@ -41,8 +40,7 @@ export default class Signup extends Login {
                 return res.json()
             }
         );
-        if (!response.ok){
-            console.log(response);
+        if (!response.ok) {
             this.setState({error: response.message});
             // alert(response.message);
         } else {
@@ -77,7 +75,8 @@ export default class Signup extends Login {
                                        margin="normal" required fullWidth id="username" name={"username"}
                                        label="Username" autoFocus/>
                             <TextField value={this.state.email} onChange={this.handleChange}
-                                       margin="normal" required fullWidth id="email" type="email" name="email" label="Email"/>
+                                       margin="normal" required fullWidth id="email" type="email" name="email"
+                                       label="Email"/>
                             <TextField value={this.state.password} onChange={this.handleChange}
                                        margin="normal" name="password"
                                        id={"password"} label={"Password"}
