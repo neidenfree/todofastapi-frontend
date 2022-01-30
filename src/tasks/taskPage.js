@@ -21,6 +21,7 @@ export default class TaskPage extends Component {
         this.smoothAddHandler = this.smoothAddHandler.bind(this);
         this.smoothDeleteHandler = this.smoothDeleteHandler.bind(this);
         this.smoothDoneHandler = this.smoothDoneHandler.bind(this);
+        this.smoothEditHandler = this.smoothEditHandler.bind(this);
 
     }
 
@@ -73,15 +74,15 @@ export default class TaskPage extends Component {
         let t = this.state.tasks;
         console.log('taskId = ', taskId);
         let number = t.findIndex(task => task.task_id === taskId);
-        // t[number].done = !t[number].done;
-        // this.setState({
-        //     tasks: t
-        // });
+    }
 
-        // t.find(x => x.task_id === taskId).done = !t.find(x => x.task_id === taskId).done;
-        // this.setState(
-        //     {tasks: t}
-        // );
+    smoothEditHandler(task){
+        let tasks = this.state.tasks;
+        let index = tasks.findIndex(t => t.task_id === task.task_id);
+        tasks[index] = task;
+        this.setState({
+            tasks: tasks
+        });
     }
 
 
@@ -101,6 +102,7 @@ export default class TaskPage extends Component {
                             {this.state.tasks.map(task => {
                                 return (<Task key={task.task_id} title={task.title} description={task.description}
                                               done={task.done}
+                                              smoothEditHandler={this.smoothEditHandler}
                                               smoothDoneHandler={this.smoothDoneHandler}
                                               taskId={task.task_id} smoothDeleteHandler={this.smoothDeleteHandler}/>);
                             })}

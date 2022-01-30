@@ -11,10 +11,12 @@ export default class Task extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            done: this.props.done
+            done: this.props.done,
+            open: false
         }
         this.handleDone = this.handleDone.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.parentHandleClose = this.parentHandleClose.bind(this);
 
     }
 
@@ -68,18 +70,38 @@ export default class Task extends Component {
             });
     }
 
+
     handleEdit(taskId) {
         console.log('taskId edit = ', taskId);
-        return (<TaskEditForm
-            taskId={taskId} title={this.props.taskId}
-            description={this.props.description} done={this.props.done}/>);
+        this.setState({
+            open: true
+        });
+        console.log(this.state);
+    }
+
+    parentHandleClose() {
+        this.setState({open: false});
+    }
+
+    openForm() {
+        return (this.state.open ? <TaskEditForm
+                done={this.state.done}
+                description={this.props.description}
+                title={this.props.title}
+                parentHandleClose={this.parentHandleClose}
+                taskId={this.props.taskId}
+                smoothEditHandler={this.props.smoothEditHandler}
+
+            />
+            : <div></div>);
     }
 
     render() {
         return (
-
             <Card variant={"outlined"}>
                 <CardContent>
+                    {this.openForm()}
+
                     <Grid container spacing={2}>
                         <Grid item>
                             <Button onClick={() => {
@@ -96,7 +118,6 @@ export default class Task extends Component {
                                 this.handleEdit(this.props.taskId)
                             }}><EditIcon/></Button>
                         </Grid>
-
                     </Grid>
                     {this.state.done ? <Typography variant={"h5"} sx={{'textDecoration': 'line-through'}}>
                         {this.props.title}
