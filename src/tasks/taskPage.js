@@ -1,10 +1,24 @@
 // import App from "../App";
 // import './login.css'
 import {Component} from "react";
-import {Navigate, NavLink} from "react-router-dom";
+import {Navigate, NavLink, useHistory, useNavigate} from "react-router-dom";
 import {logOut} from "../App";
 import {loggedIn} from "../App";
-import {Box, Button, Container, Fab, Grid, Link, Modal, Stack, TextField, Typography} from "@mui/material";
+import SettingsIcon from '@mui/icons-material/Settings';
+import {
+    Box,
+    Button,
+    Container,
+    Fab,
+    Grid,
+    Link,
+    Modal,
+    SpeedDial,
+    SpeedDialAction,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import Task from "./task";
 import TaskForm from "./taskForm";
 
@@ -22,6 +36,7 @@ export default class TaskPage extends Component {
         this.smoothDeleteHandler = this.smoothDeleteHandler.bind(this);
         this.smoothDoneHandler = this.smoothDoneHandler.bind(this);
         this.smoothEditHandler = this.smoothEditHandler.bind(this);
+        this.handleRedirect = this.handleRedirect.bind(this);
 
     }
 
@@ -70,13 +85,20 @@ export default class TaskPage extends Component {
         });
     }
 
+    handleRedirect(to) {
+        this.setState({
+                redirect: to
+            }
+        );
+    }
+
     smoothDoneHandler(taskId) {
         let t = this.state.tasks;
         console.log('taskId = ', taskId);
         let number = t.findIndex(task => task.task_id === taskId);
     }
 
-    smoothEditHandler(task){
+    smoothEditHandler(task) {
         let tasks = this.state.tasks;
         let index = tasks.findIndex(t => t.task_id === task.task_id);
         tasks[index] = task;
@@ -85,8 +107,12 @@ export default class TaskPage extends Component {
         });
     }
 
-
     render() {
+        console.log(this.state);
+        if (this.state.redirect){
+            return (<Navigate to={this.state.redirect}/>);
+        }
+
         return (
             loggedIn() ? <div>
                     <Container maxWidth="sm">
@@ -108,6 +134,19 @@ export default class TaskPage extends Component {
                             })}
                         </Stack>
 
+                        <SpeedDial sx={{position: "fixed", bottom: '50px', right: '50px'}}
+                                   ariaLabel={"Speed dial"}>
+                            {/*<NavLink to={"/settings"}>*/}
+                            <SpeedDialAction
+                                onClick={() => {
+                                    this.handleRedirect('/settings')
+                                }}
+                                // onClick={() => {return (<Navigate to={"/settings"}/>)}}
+                                key={"Settings"} icon={<SettingsIcon/>}
+                                tooltipTitle={"Settings"}>
+                            </SpeedDialAction>
+                            {/*</NavLink>*/}
+                        </SpeedDial>
                     </Container>
                 </div> :
                 <Navigate to={"/login"}/>
