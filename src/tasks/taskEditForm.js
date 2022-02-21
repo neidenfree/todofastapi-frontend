@@ -1,5 +1,6 @@
 import TaskForm from "./taskForm";
 import {Box, Button, Container, Modal, TextField, Typography} from "@mui/material";
+import {backend} from "../App";
 
 
 const style = {
@@ -51,7 +52,7 @@ export default class TaskEditForm extends TaskForm {
             method: 'PUT', headers: {'content-type': 'application/json'}, body: JSON.stringify(updatedTaskData)
         }
 
-        fetch("http://localhost:8888/task", requestOptions).then(res => res.json()).then(res => console.log(res))
+        fetch(backend + "task", requestOptions).then(res => res.json()).then(res => console.log(res))
             .then(() => {
                 this.props.smoothEditHandler(updatedTaskData.task)
             });

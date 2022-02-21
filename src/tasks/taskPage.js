@@ -2,7 +2,7 @@
 // import './login.css'
 import {Component} from "react";
 import {Navigate, NavLink, useHistory, useNavigate} from "react-router-dom";
-import {logOut} from "../App";
+import {backend, logOut} from "../App";
 import {loggedIn} from "../App";
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
@@ -53,7 +53,7 @@ export default class TaskPage extends Component {
             body: JSON.stringify(loginData)
         }
 
-        fetch("http://localhost:8888/tasks", requestOptions).then(
+        fetch(backend + "tasks", requestOptions).then(
             res => {
                 return res.json();
             }
@@ -108,7 +108,6 @@ export default class TaskPage extends Component {
     }
 
     render() {
-        console.log(this.state);
         if (this.state.redirect){
             return (<Navigate to={this.state.redirect}/>);
         }
@@ -136,16 +135,13 @@ export default class TaskPage extends Component {
 
                         <SpeedDial sx={{position: "fixed", bottom: '50px', right: '50px'}}
                                    ariaLabel={"Speed dial"}>
-                            {/*<NavLink to={"/settings"}>*/}
                             <SpeedDialAction
                                 onClick={() => {
                                     this.handleRedirect('/settings')
                                 }}
-                                // onClick={() => {return (<Navigate to={"/settings"}/>)}}
                                 key={"Settings"} icon={<SettingsIcon/>}
                                 tooltipTitle={"Settings"}>
                             </SpeedDialAction>
-                            {/*</NavLink>*/}
                         </SpeedDial>
                     </Container>
                 </div> :

@@ -1,6 +1,7 @@
 import Login from "./login";
 import {Alert, Box, Button, Grid, Link, TextField, Typography} from "@mui/material";
 import {Navigate, NavLink} from "react-router-dom";
+import {backend} from "../App";
 
 
 export default class ChangePassword extends Login {
@@ -41,7 +42,7 @@ export default class ChangePassword extends Login {
             body: JSON.stringify(changeData)
         }
 
-        const response = await fetch('http://localhost:8888/change-password/', requestOptions).then(
+        const response = await fetch(backend + 'change-password/', requestOptions).then(
             (res) => {
                 return res.json()
             }

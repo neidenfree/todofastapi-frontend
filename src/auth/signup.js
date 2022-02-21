@@ -1,6 +1,7 @@
 import Login from "./login";
 import {Alert, Box, Button, Grid, Link, TextField, Typography} from "@mui/material";
 import {Navigate, NavLink} from "react-router-dom";
+import {backend} from "../App";
 // import {useNavigate} from "react-router-dom";
 
 
@@ -35,7 +36,7 @@ export default class Signup extends Login {
         }
 
         // try{
-        const response = await fetch('http://localhost:8888/register/', requestOptions).then(
+        const response = await fetch(backend + 'register/', requestOptions).then(
             (res) => {
                 return res.json()
             }

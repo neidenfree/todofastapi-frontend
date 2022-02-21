@@ -4,7 +4,7 @@ import {Component} from "react";
 import {NavLink, Redirect, useNavigate} from "react-router-dom";
 import {Navigate} from "react-router-dom";
 // import {loggedId} from "../App";
-import {loggedIn} from "../App";
+import {backend, loggedIn} from "../App";
 import {Alert, Box, Button, Grid, Link, TextField, Typography} from "@mui/material";
 // import {Link} from "react-router-dom";
 // import loggedIn from app
@@ -54,7 +54,7 @@ export default class Login extends Component {
         }
 
         // try{
-        const response = await fetch('http://localhost:8888/login/', requestOptions).then(
+        const response = await fetch(backend + 'login/', requestOptions).then(
             (res) => {
                 if (!res.ok) {
                     return {

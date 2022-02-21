@@ -1,6 +1,7 @@
 import {Component} from "react";
 import Login from "../auth/login";
 import {Box, Button, Container, Modal, TextField, Typography} from "@mui/material";
+import {backend} from "../App";
 
 
 const style = {
@@ -66,7 +67,7 @@ export default class TaskForm extends Component {
             body: JSON.stringify(newTaskData)
         }
 
-        fetch("http://localhost:8888/tasks/new", requestOptions).then(
+        fetch(backend + "tasks/new", requestOptions).then(
             res => res.json()
         ).then(res => this.props.smoothAddHandler({
             title: res.title, task_id: res.task_id, description: res.description

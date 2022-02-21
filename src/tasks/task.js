@@ -5,6 +5,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import TaskForm from "./taskForm";
 import TaskEditForm from "./taskEditForm";
+import {backend} from "../App";
 
 
 export default class Task extends Component {
@@ -35,7 +36,7 @@ export default class Task extends Component {
         const requestOptions = {
             method: 'DELETE', headers: {'content-type': 'application/json'}, body: JSON.stringify(deleteTaskData)
         }
-        fetch("http://localhost:8888/task", requestOptions).then(res => res.json()).then(() => {
+        fetch(backend + "task", requestOptions).then(res => res.json()).then(() => {
             this.props.smoothDeleteHandler(taskId)
         });
     }
