@@ -16,8 +16,8 @@ export function loggedIn() {
 
 // export const backend = "http://localhost:8888/";
 // export const backend = "http://23.111.121.144:8888/";
-export const backend = "http://23.111.121.27:8888/";
-
+// export const backend = "http://23.111.121.27:8888/";
+export const backend = "https://neidenfree.men/";
 
 export function logOut(){
     localStorage.clear();

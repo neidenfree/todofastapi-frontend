@@ -65,7 +65,7 @@ export default class Task extends Component {
             method: 'PUT', headers: {'content-type': 'application/json'}, body: JSON.stringify(newTaskData)
         }
 
-        fetch("http://localhost:8888/task", requestOptions).then(res => res.json()).then(res => console.log(res))
+        fetch(backend + "task", requestOptions).then(res => res.json()).then(res => console.log(res))
             .then(() => {
                 this.props.smoothDoneHandler(taskId)
             });
